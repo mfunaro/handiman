@@ -13,7 +13,7 @@ config :logger, level: :warn
 config :handiman, Handiman.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "postgres",
+  password: "admin",
   database: "handiman_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

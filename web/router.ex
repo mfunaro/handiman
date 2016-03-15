@@ -19,8 +19,9 @@ defmodule Handiman.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Handiman do
-  #   pipe_through :api
-  # end
+  scope "/api", Handiman do
+   pipe_through :api
+
+   resources "/users", UserController, except: [:new, :edit]
+  end
 end
