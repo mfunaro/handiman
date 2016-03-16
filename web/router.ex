@@ -22,6 +22,7 @@ defmodule Handiman.Router do
   scope "/api", Handiman do
    pipe_through :api
 
-   resources "/users", UserController, except: [:new, :edit]
+   resources "/users", UserController, except: [:new, :edit, :create]
+   resources "/register", RegistrationController, only: [:create]
   end
 end

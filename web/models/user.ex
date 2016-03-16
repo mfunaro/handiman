@@ -6,11 +6,13 @@ defmodule Handiman.User do
     field :last_name, :string
     field :email, :string
     field :encrypted_password, :string
+    field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
 
     timestamps
   end
 
-  @required_fields ~w(first_name last_name email encrypted_password)
+  @required_fields ~w(first_name last_name email password password_confirmation)
   @optional_fields ~w()
 
   @doc """
@@ -22,5 +24,11 @@ defmodule Handiman.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> unique_constraint(:email, on: Handiman.Repo, downcase: true)
+    |> validate_length(:first_name, min: 1)
+    |> validate_length(:last_name, min: 1)
+    |> validate_length(:password, min: 1)
+    |> validate_length(:password_confirmation, min: 1)
+    |> validate_confirmation(:password)
   end
 end
